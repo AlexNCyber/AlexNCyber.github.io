@@ -26,16 +26,6 @@ I'm working toward a career as a Data Engineer or Software Engineer. I code in P
 
 Deployed with [GitHub Pages](https://pages.github.com/), on a custom domain via Namecheap DNS.
 
-## Running locally
-
-No build step required — clone the repo and open the file directly in a browser:
-
-```bash
-git clone https://github.com/AlexNCyber/AlexNCyber.github.io.git
-cd AlexNCyber.github.io
-open index.html   # or double-click the file
-```
-
 ## Contact
 
 - Email & phone: available via the buttons on the [live site](https://alexnicolaou.dev)
