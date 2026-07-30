@@ -2,7 +2,7 @@
 
 Personal portfolio site, live at **[alexnicolaou.dev](https://alexnicolaou.dev)**.
 
-A single-page site built to showcase my coding projects, skills, and background as a first-year IT student specialising in Data Engineering.
+A single-page site built to showcase my coding projects, skills, and background as a IT student specialising in Data Engineering.
 
 ## About
 
