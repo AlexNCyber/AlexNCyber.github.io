@@ -3,11 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; script-src 'none'; object-src 'none'; base-uri 'self';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src https://fonts.gstatic.com; img-src 'self'; script-src 'self' https://cdn.jsdelivr.net; object-src 'none'; base-uri 'self';">
 <title>Alexander Nicolaou — Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <style>
   :root{
     --bg:#0A0B0D;
@@ -41,7 +42,7 @@
 
   .wrap{max-width:var(--maxw); margin:0 auto; padding:0 32px;}
 
-  /* subtle background grid, like a code editor gutter texture */
+  /* Grid background */
   .grid-bg{
     position:fixed; inset:0; z-index:-1; opacity:0.5;
     background-image:
@@ -150,6 +151,7 @@
   .card{
     background:var(--surface); border:1px solid var(--border); border-radius:10px;
     overflow:hidden; transition:border-color .15s ease, transform .15s ease;
+    height:100%;
   }
   .card:hover{border-color:var(--border-strong); transform:translateY(-2px);}
   .card-tab{
@@ -172,6 +174,58 @@
   .card-links{display:flex; gap:16px; font-family:var(--mono); font-size:12.5px;}
   .card-links a{color:var(--text-dim); border-bottom:1px solid transparent; transition:color .15s ease, border-color .15s ease;}
   .card-links a:hover{color:var(--green); border-color:var(--green);}
+
+  /* photo */
+  .photo-frame{
+    border:1px solid var(--border); border-radius:10px; overflow:hidden;
+    background:var(--surface); max-width:340px;
+  }
+  .photo-frame .card-tab{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:12px 16px; background:var(--surface-2); border-bottom:1px solid var(--border);
+    font-family:var(--mono); font-size:12px; color:var(--text-dim);
+  }
+  .photo-frame .card-status{color:var(--green);}
+  .photo-frame .photo-wrap{
+    aspect-ratio:4/5; width:100%; background:var(--surface-2);
+    display:flex; align-items:center; justify-content:center; overflow:hidden;
+  }
+  .photo-frame img{width:100%; height:100%; object-fit:cover; display:block;}
+
+  /* carousel */
+  .interest-slide{
+    background:var(--surface); border:1px solid var(--border); border-radius:10px;
+    padding:40px; min-height:180px; display:flex; flex-direction:column; justify-content:center;
+  }
+  .interest-slide .slide-eyebrow{font-family:var(--mono); font-size:12px; color:var(--green); margin-bottom:10px;}
+  .interest-slide h3{font-family:var(--mono); font-size:20px; font-weight:600; margin-bottom:10px;}
+  .interest-slide p{color:var(--text-dim); max-width:520px; margin:0;}
+  .carousel-indicators [data-bs-target]{
+    background-color:var(--border-strong); width:8px; height:8px; border-radius:50%; opacity:1;
+  }
+  .carousel-indicators .active{background-color:var(--green);}
+  .carousel-control-prev, .carousel-control-next{width:5%; opacity:0.6;}
+  .carousel-control-prev:hover, .carousel-control-next:hover{opacity:1;}
+  .carousel-control-prev-icon, .carousel-control-next-icon{
+    filter: invert(1) grayscale(1) brightness(1.6);
+    width:1.6rem; height:1.6rem;
+  }
+
+  /* collapse trigger */
+  .collapse-trigger{
+    width:100%; text-align:left; display:flex; align-items:center; justify-content:space-between;
+  }
+  .collapse-trigger .chevron{transition:transform .2s ease; font-family:var(--mono);}
+  .collapse-trigger[aria-expanded="true"] .chevron{transform:rotate(180deg);}
+  .hobbies-panel{
+    border:1px solid var(--border); border-radius:10px; padding:22px; margin-top:14px;
+    background:var(--surface);
+  }
+  .hobbies-panel ul{list-style:none; display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:10px;}
+  .hobbies-panel li{
+    display:flex; gap:10px; align-items:baseline; color:var(--text-dim); font-size:14.5px;
+  }
+  .hobbies-panel li::before{content:'▸'; color:var(--green); font-family:var(--mono); flex-shrink:0;}
 
   /* skills */
   .skills-groups{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:24px;}
@@ -212,11 +266,11 @@
 <div class="grid-bg"></div>
 
 <header>
-  <div class="wrap">
+  <div class="wrap container">
     <nav>
-      <div class="logo"><span class="dot"></span>alexander-nicolaou</div>
+      <a class="logo" href="index.html"><span class="dot"></span>alexander-nicolaou</a>
       <div class="navlinks">
-        <a href="#about">about</a>
+        <a href="about.html">about</a>
         <a href="projects.html">projects</a>
         <a href="#skills">skills</a>
         <a href="contact.html">contact</a>
@@ -227,17 +281,30 @@
 </header>
 
 <main>
-  <div class="wrap">
+  <div class="wrap container">
     <section class="hero">
-      <div class="eyebrow">open to internships &amp; entry-level roles</div>
-      <h1>Building things<br>that <span class="accent">ship</span>, not just compile.</h1>
-      <p class="subhead">I'm Alexander Nicolaou, I'm an IT student specialising in Data Engineering. Below is a snapshot of what I've built so far and what I'm working on now.</p>
-      <div class="hero-ctas">
-        <a class="btn btn-primary" href="#projects">View projects</a>
-        <a class="btn btn-secondary" href="#contact">Get in touch</a>
+      <div class="row align-items-center g-5">
+        <div class="col-lg-7">
+          <div class="eyebrow">open to internships &amp; entry-level roles</div>
+          <h1>Building things<br>that <span class="accent">ship</span>, not just compile.</h1>
+          <p class="subhead">I'm Alexander Nicolaou, currently studying Information Technology with a focus on Data Engineering. My goal is to build a career as a Data Engineer or Software Engineer — designing reliable systems and clean, trustworthy data pipelines. Below is a snapshot of what I've built so far and what I'm working on now.</p>
+          <div class="hero-ctas">
+            <a class="btn btn-primary" href="#projects">View projects</a>
+            <a class="btn btn-secondary" href="#contact">Get in touch</a>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class="photo-frame mx-auto">
+            <div class="card-tab"><span>profile.jpg</span><span class="card-status">●</span></div>
+            <div class="photo-wrap">
+              <!-- Add your photo: drop a file named "profile.jpg" in the same folder as this page. -->
+              <img src="profile.jpg" alt="Alexander Nicolaou">
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="terminal">
+      <div class="terminal mt-5">
         <div class="term-bar">
           <div class="term-dot" style="background:#B9614F"></div>
           <div class="term-dot" style="background:#E0A458"></div>
@@ -259,16 +326,19 @@
         <h2>about</h2>
         <div class="section-rule"></div>
       </div>
-      <div class="about-grid">
-        <div class="about-body">
+      <div class="row g-4">
+        <div class="col-lg-8 about-body">
           <p>I'm a Information Technology student and aspiring Data Engineer, working toward a career as a Data Engineer or Software Engineer. I code in Python, SQL, HTML, CSS, Java and JavaScript, and I'm currently expanding into C++ and C#. I'm always keen to learn, take on new projects, and connect with others in tech and data.</p>
           <p>Feel free to check out my work on GitHub, or reach out if you're hiring for internships or entry-level roles in software or data engineering.</p>
         </div>
-        <div class="facts">
+        <div class="col-lg-4 facts">
           <div class="fact-row"><span>role</span><span>aspiring data &amp; software engineer</span></div>
           <div class="fact-row"><span>focus</span><span>Python, Java, JavaScript, HTML, CCS, SQL</span></div>
           <div class="fact-row"><span>contact</span><span>see below ↓</span></div>
         </div>
+      </div>
+      <div style="margin-top:28px;">
+        <a class="btn btn-secondary" href="about.html">Read full bio →</a>
       </div>
     </section>
 
@@ -278,8 +348,9 @@
         <h2>projects</h2>
         <div class="section-rule"></div>
       </div>
-      <div class="projects">
+      <div class="row g-4">
 
+        <div class="col-md-6">
         <div class="card">
           <div class="card-tab"><span>password-vault.md</span><span class="card-status">● complete</span></div>
           <div class="card-body">
@@ -290,7 +361,9 @@
             <div class="card-links"><a href="https://github.com/AlexNCyber/Password-Vault" target="_blank" rel="noopener noreferrer">source code →</a></div>
           </div>
         </div>
+        </div>
 
+        <div class="col-md-6">
         <div class="card">
           <div class="card-tab"><span>quote-scraper.md</span><span class="card-status">● complete</span></div>
           <div class="card-body">
@@ -301,7 +374,9 @@
             <div class="card-links"><a href="https://github.com/AlexNCyber/Python-Web-Scraper" target="_blank" rel="noopener noreferrer">source code →</a></div>
           </div>
         </div>
+        </div>
 
+        <div class="col-md-6">
         <div class="card">
           <div class="card-tab"><span>finance-tracker.md</span><span class="card-status">● complete</span></div>
           <div class="card-body">
@@ -312,7 +387,9 @@
             <div class="card-links"><a href="https://github.com/AlexNCyber/Personal-Finance-Tracker" target="_blank" rel="noopener noreferrer">source code →</a></div>
           </div>
         </div>
+        </div>
 
+        <div class="col-md-6">
         <div class="card">
           <div class="card-tab"><span>etl-pipeline.md</span><span class="card-status">● complete</span></div>
           <div class="card-body">
@@ -323,7 +400,9 @@
             <div class="card-links"><a href="https://github.com/AlexNCyber/ETL-Pipeline" target="_blank" rel="noopener noreferrer">source code →</a></div>
           </div>
         </div>
+        </div>
 
+        <div class="col-md-6">
         <div class="card">
           <div class="card-tab"><span>firewall</span><span class="card-status">● complete </span></div>
           <div class="card-body">
@@ -333,6 +412,7 @@
             <div class="diffstat"><span class="add">+ protection </span><span class="rem">- personal test </span></div>
             <div class="card-links"><a href="https://github.com/AlexNCyber/Firewall" target="_blank" rel="noopener noreferrer">source code →</a></div>
           </div>
+        </div>
         </div>
       </div>
       <div style="margin-top:28px;">
@@ -395,9 +475,73 @@
       </div>
     </section>
 
-    <section id="contact">
+    <section id="interests">
       <div class="section-head">
         <span class="section-num">04</span>
+        <h2>currently exploring</h2>
+        <div class="section-rule"></div>
+      </div>
+
+      <div id="interestsCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#interestsCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#interestsCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#interestsCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="interest-slide">
+              <div class="slide-eyebrow">$ focus/01</div>
+              <h3>Data Engineering</h3>
+              <p>Designing pipelines that move data from messy, real-world sources into clean, structured, queryable form — the ETL project on my projects page grew out of this.</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="interest-slide">
+              <div class="slide-eyebrow">$ focus/02</div>
+              <h3>Cybersecurity</h3>
+              <p>Encryption, network defence, and secure-by-default design. My password vault and firewall projects both come out of this interest.</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="interest-slide">
+              <div class="slide-eyebrow">$ focus/03</div>
+              <h3>Backend &amp; Cloud</h3>
+              <p>Building the systems behind the interface — APIs, databases, and cloud data warehouses like BigQuery.</p>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#interestsCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#interestsCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+
+      <button class="btn btn-secondary collapse-trigger mt-5" type="button" data-bs-toggle="collapse" data-bs-target="#hobbiesCollapse" aria-expanded="false" aria-controls="hobbiesCollapse">
+        <span>hobbies.txt</span>
+        <span class="chevron">⌄</span>
+      </button>
+      <div class="collapse" id="hobbiesCollapse">
+        <div class="hobbies-panel">
+          <ul>
+            <li>Hiking</li>
+            <li>Gaming</li>
+            <li>Reading</li>
+            <li>Driving</li>
+            <li>Coding</li>
+            <li>Exploring</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="section-head">
+        <span class="section-num">05</span>
         <h2>contact</h2>
         <div class="section-rule"></div>
       </div>
@@ -423,6 +567,8 @@
     <span>last commit: just now</span>
   </div>
 </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

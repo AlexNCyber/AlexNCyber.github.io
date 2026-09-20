@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src https://fonts.gstatic.com; img-src 'self'; script-src 'none'; object-src 'none'; base-uri 'self';">
+<title>About — Alexander Nicolaou</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0B0D;
+    --surface:#141619;
+    --surface-2:#1B1E23;
+    --border:#262A31;
+    --border-strong:#34393F;
+    --text:#E9E7E2;
+    --text-dim:#9099A1;
+    --text-faint:#5C636B;
+    --green:#6FCF97;
+    --amber:#E0A458;
+    --red:#B9614F;
+    --blue:#7CA6D8;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+    --sans: 'IBM Plex Sans', -apple-system, sans-serif;
+    --maxw: 1080px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.6;
+    font-size:16px;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+  }
+  a{color:inherit; text-decoration:none;}
+  ::selection{background:var(--green); color:#0A0B0D;}
+
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 32px; width:100%;}
+
+  .grid-bg{
+    position:fixed; inset:0; z-index:-1; opacity:0.5;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size:64px 64px;
+    -webkit-mask-image: radial-gradient(ellipse 80% 50% at 50% 0%, #000 20%, transparent 70%);
+            mask-image: radial-gradient(ellipse 80% 50% at 50% 0%, #000 20%, transparent 70%);
+  }
+
+  /* nav */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(10,11,13,0.85);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--border);
+  }
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 0;
+  }
+  .logo{
+    font-family:var(--mono); font-weight:600; font-size:15px; color:var(--text);
+    display:flex; align-items:center; gap:8px;
+  }
+  .logo .dot{width:8px; height:8px; border-radius:50%; background:var(--green); display:inline-block;}
+  .navlinks{display:flex; gap:28px; font-family:var(--mono); font-size:13px; color:var(--text-dim);}
+  .navlinks a{transition:color .15s ease;}
+  .navlinks a:hover{color:var(--green);}
+  .navlinks a.active{color:var(--green);}
+  .navlinks .branch{
+    color:var(--text-faint); border:1px solid var(--border); border-radius:4px;
+    padding:3px 10px; font-size:12px;
+  }
+  @media (max-width:640px){ .navlinks a:not(.branch){display:none;} }
+
+  main{flex:1;}
+
+  section{padding:80px 0;}
+  .section-head{
+    display:flex; align-items:baseline; gap:14px; margin-bottom:44px;
+  }
+  .section-num{font-family:var(--mono); font-size:13px; color:var(--text-faint);}
+  h2{font-family:var(--mono); font-size:24px; font-weight:600;}
+  .section-rule{flex:1; height:1px; background:var(--border);}
+
+  .btn{
+    font-family:var(--mono); font-size:13px; padding:11px 20px; border-radius:6px;
+    border:1px solid var(--border-strong); transition:all .15s ease; display:inline-flex; align-items:center; gap:8px;
+    cursor:pointer; background:transparent;
+  }
+  .btn-primary{background:var(--green); color:#0A0B0D; border-color:var(--green); font-weight:600;}
+  .btn-primary:hover{opacity:0.88;}
+  .btn-secondary{color:var(--text); background:transparent;}
+  .btn-secondary:hover{border-color:var(--text-dim); background:var(--surface);}
+
+  .hero-mini{padding:72px 0 0;}
+  .eyebrow{
+    font-family:var(--mono); font-size:12px; color:var(--green);
+    letter-spacing:0.04em; margin-bottom:18px; display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{content:''; width:18px; height:1px; background:var(--green); display:inline-block;}
+  h1{
+    font-family:var(--mono); font-weight:600; font-size:clamp(28px,4.2vw,42px);
+    line-height:1.15; letter-spacing:-0.01em; margin-bottom:16px;
+  }
+  h1 .accent{color:var(--green);}
+  .subhead{color:var(--text-dim); font-size:17px; max-width:560px;}
+
+  /* about layout */
+  .about-grid{
+    display:grid; grid-template-columns:280px 1fr; gap:44px; align-items:start;
+  }
+  @media (max-width:760px){ .about-grid{grid-template-columns:1fr;} }
+
+  .photo-frame{
+    border:1px solid var(--border); border-radius:10px; overflow:hidden;
+    background:var(--surface);
+  }
+  .photo-frame .card-tab{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:12px 16px; background:var(--surface-2); border-bottom:1px solid var(--border);
+    font-family:var(--mono); font-size:12px; color:var(--text-dim);
+  }
+  .photo-frame .card-status{color:var(--green);}
+  .photo-frame .photo-wrap{
+    aspect-ratio:4/5; width:100%; background:var(--surface-2);
+    display:flex; align-items:center; justify-content:center;
+    position:relative; overflow:hidden;
+  }
+  .photo-frame img{
+    width:100%; height:100%; object-fit:cover; display:block;
+  }
+  .photo-placeholder{
+    text-align:center; color:var(--text-faint); font-family:var(--mono); font-size:12px;
+    padding:24px; line-height:1.7;
+  }
+  .photo-placeholder svg{width:40px; height:40px; color:var(--border-strong); margin-bottom:10px;}
+  .photo-caption{
+    font-family:var(--mono); font-size:11.5px; color:var(--text-faint);
+    text-align:center; padding:10px 12px; border-top:1px solid var(--border);
+  }
+
+  .about-body p{color:var(--text-dim); margin-bottom:18px; max-width:600px;}
+  .about-body p:last-child{margin-bottom:0;}
+
+  .facts{
+    margin-top:28px; border:1px solid var(--border); border-radius:10px;
+    background:var(--surface); overflow:hidden;
+  }
+  .fact-row{
+    display:flex; justify-content:space-between; gap:16px; padding:14px 20px;
+    font-family:var(--mono); font-size:13px; border-bottom:1px solid var(--border);
+  }
+  .fact-row:last-child{border-bottom:none;}
+  .fact-row span:first-child{color:var(--text-faint);}
+  .fact-row span:last-child{color:var(--text); text-align:right;}
+
+  .now-list{list-style:none; margin-top:14px;}
+  .now-list li{
+    display:flex; gap:10px; align-items:baseline; color:var(--text-dim); font-size:14.5px;
+    margin-bottom:10px;
+  }
+  .now-list li::before{content:'▸'; color:var(--green); font-family:var(--mono); flex-shrink:0;}
+
+  footer{
+    border-top:1px solid var(--border); padding:28px 0; margin-top:40px;
+    font-family:var(--mono); font-size:12px; color:var(--text-faint);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+  }
+
+  :focus-visible{outline:2px solid var(--green); outline-offset:2px;}
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+
+<header>
+  <div class="wrap container">
+    <nav>
+      <a class="logo" href="index.html"><span class="dot"></span>alexander-nicolaou</a>
+      <div class="navlinks">
+        <a href="about.html" class="active">about</a>
+        <a href="projects.html">projects</a>
+        <a href="index.html#skills">skills</a>
+        <a href="contact.html">contact</a>
+        <span class="branch">main</span>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap container">
+    <section class="hero-mini">
+      <div class="eyebrow">the person behind the code</div>
+      <h1>Hi, I'm <span class="accent">Alexander</span>.</h1>
+      <p class="subhead">IT student specialising in Data Engineering. Here's a bit more about who I am, what I care about, and what I'm working on right now.</p>
+    </section>
+
+    <section id="about-detail">
+      <div class="section-head">
+        <span class="section-num">$</span>
+        <h2>about me</h2>
+        <div class="section-rule"></div>
+      </div>
+
+      <div class="row g-5">
+        <div class="col-lg-4">
+          <div class="photo-frame">
+            <div class="card-tab"><span>profile.jpg</span><span class="card-status">●</span></div>
+            <div class="photo-wrap">
+              <!-- Add your photo: drop a file named "profile.jpg" in the same folder as this page. -->
+              <img src="profile.jpg" alt="Alexander Nicolaou">
+            </div>
+            <div class="photo-caption">Sydney, Australia</div>
+          </div>
+          <p style="font-family:var(--mono); font-size:11.5px; color:var(--text-faint); margin-top:10px;">psst — add a file named <code style="color:var(--text-dim);">profile.jpg</code> next to this page to swap in your photo.</p>
+        </div>
+
+        <div class="col-lg-8">
+          <div class="about-body">
+            <p>I'm an Information Technology student and aspiring Data Engineer, working toward a career as a Data Engineer or Software Engineer. I enjoy the end-to-end problem of getting data from a messy, real-world source into something clean, structured, and useful — and I like building the small, practical tools around that along the way.</p>
+            <p>I code in Python, SQL, HTML, CSS, Java and JavaScript, and I'm currently expanding into C++ and C#. Outside of coursework, I build personal projects to learn by doing — a password vault, a web scraper, a finance tracker, an ETL pipeline, and a firewall so far.</p>
+            <p>I'm always keen to learn, take on new projects, and connect with others in tech and data. Feel free to check out my work on GitHub, or reach out if you're hiring for internships or entry-level roles in software or data engineering.</p>
+          </div>
+
+          <div class="facts">
+            <div class="fact-row"><span>role</span><span>aspiring data &amp; software engineer</span></div>
+            <div class="fact-row"><span>studying</span><span>information technology</span></div>
+            <div class="fact-row"><span>focus</span><span>Python, Java, JavaScript, HTML, CSS, SQL</span></div>
+            <div class="fact-row"><span>learning now</span><span>C++, C#</span></div>
+            <div class="fact-row"><span>based in</span><span>Sydney, Australia</span></div>
+            <div class="fact-row"><span>status</span><span>open to internships &amp; grad roles</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap" style="display:flex; justify-content:space-between; width:100%; flex-wrap:wrap; gap:10px;">
+    <span>© 2026 Alexander Nicolaou. built with html &amp; css.</span>
+    <span>last commit: just now</span>
+  </div>
+</footer>
+
+</body>
+</html>
