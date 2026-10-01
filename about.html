@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src https://fonts.gstatic.com; img-src 'self'; script-src 'none'; object-src 'none'; base-uri 'self';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src https://fonts.gstatic.com; img-src 'self'; script-src 'self'; object-src 'none'; base-uri 'self';">
 <title>About — Alexander Nicolaou</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -178,6 +178,7 @@
 
   :focus-visible{outline:2px solid var(--green); outline-offset:2px;}
 </style>
+<link rel="stylesheet" href="enhancements.css">
 </head>
 <body>
 
@@ -187,13 +188,14 @@
   <div class="wrap container">
     <nav>
       <a class="logo" href="index.html"><span class="dot"></span>alexander-nicolaou</a>
-      <div class="navlinks">
+      <div class="navlinks" id="navlinks">
         <a href="about.html" class="active">about</a>
         <a href="projects.html">projects</a>
         <a href="index.html#skills">skills</a>
         <a href="contact.html">contact</a>
         <span class="branch">main</span>
       </div>
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navlinks"><span></span><span></span><span></span></button>
     </nav>
   </div>
 </header>
@@ -247,10 +249,12 @@
 
 <footer>
   <div class="wrap" style="display:flex; justify-content:space-between; width:100%; flex-wrap:wrap; gap:10px;">
-    <span>© 2026 Alexander Nicolaou. built with html &amp; css.</span>
+    <span>© 2026 Alexander Nicolaou. built with html, css &amp; javascript.</span>
     <span>last commit: just now</span>
   </div>
 </footer>
+
+<script src="script.js"></script>
 
 </body>
 </html>
