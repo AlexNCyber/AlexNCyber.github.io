@@ -1,5 +1,10 @@
+/* ==========================================================================
+   enhancements.css — styles for the JavaScript-driven features.
+   Base/shared styles (including .card-tab) live in style.css.
+   ========================================================================== */
+
 :root{
-  --error:#E5806C;         
+  --error:#E5806C;          /* brighter than --red so it is readable on dark surfaces */
   --error-bg:rgba(229,128,108,0.10);
 }
 

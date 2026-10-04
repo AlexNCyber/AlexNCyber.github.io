@@ -39,6 +39,11 @@
     return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   }
 
+  /* ------------------------------------------------------------------
+     Home page: terminal that types out its own commands.
+     The full text is already in the HTML (so it works without JS and
+     keeps its layout); the script only reveals it progressively.
+     ------------------------------------------------------------------ */
   function initTerminalTyping() {
     var body = $('#termBody');
     if (!body || prefersReducedMotion()) return;
@@ -57,6 +62,8 @@
     closingLine.classList.add('is-pending');
     cursor.classList.add('is-typing');
 
+    // Show the first n characters; the rest stays in the layout but invisible,
+    // so lines never jump or reflow while typing.
     function render(target, text, n) {
       target.textContent = text.slice(0, n);
       target.appendChild(cursor);
@@ -136,6 +143,8 @@
     }
   }
 
+  /* Copy text to the clipboard, with a fallback for browsers/contexts
+     where the async Clipboard API isn't available. */
   function copyText(text) {
     if (navigator.clipboard && navigator.clipboard.writeText) {
       return navigator.clipboard.writeText(text);

@@ -3,263 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src https://fonts.gstatic.com; img-src 'self'; script-src 'self' https://cdn.jsdelivr.net; object-src 'none'; base-uri 'self';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src https://fonts.gstatic.com; img-src 'self' data:; script-src 'self' https://cdn.jsdelivr.net; object-src 'none'; base-uri 'self';">
 <title>Alexander Nicolaou — Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<style>
-  :root{
-    --bg:#0A0B0D;
-    --surface:#141619;
-    --surface-2:#1B1E23;
-    --border:#262A31;
-    --border-strong:#34393F;
-    --text:#E9E7E2;
-    --text-dim:#9099A1;
-    --text-faint:#5C636B;
-    --green:#6FCF97;
-    --amber:#E0A458;
-    --red:#B9614F;
-    --blue:#7CA6D8;
-    --mono: 'JetBrains Mono', ui-monospace, monospace;
-    --sans: 'IBM Plex Sans', -apple-system, sans-serif;
-    --maxw: 1080px;
-  }
-  *{box-sizing:border-box; margin:0; padding:0;}
-  html{scroll-behavior:smooth;}
-  body{
-    background:var(--bg);
-    color:var(--text);
-    font-family:var(--sans);
-    line-height:1.6;
-    font-size:16px;
-    -webkit-font-smoothing:antialiased;
-  }
-  a{color:inherit; text-decoration:none;}
-  ::selection{background:var(--green); color:#0A0B0D;}
-
-  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 32px;}
-
-  /* Grid background */
-  .grid-bg{
-    position:fixed; inset:0; z-index:-1; opacity:0.5;
-    background-image:
-      linear-gradient(var(--border) 1px, transparent 1px),
-      linear-gradient(90deg, var(--border) 1px, transparent 1px);
-    background-size:64px 64px;
-    -webkit-mask-image: radial-gradient(ellipse 80% 50% at 50% 0%, #000 20%, transparent 70%);
-            mask-image: radial-gradient(ellipse 80% 50% at 50% 0%, #000 20%, transparent 70%);
-  }
-
-  /* nav */
-  header{
-    position:sticky; top:0; z-index:50;
-    background:rgba(10,11,13,0.85);
-    backdrop-filter:blur(8px);
-    border-bottom:1px solid var(--border);
-  }
-  nav{
-    display:flex; align-items:center; justify-content:space-between;
-    padding:18px 0;
-  }
-  .logo{
-    font-family:var(--mono); font-weight:600; font-size:15px; color:var(--text);
-    display:flex; align-items:center; gap:8px;
-  }
-  .logo .dot{width:8px; height:8px; border-radius:50%; background:var(--green); display:inline-block;}
-  .navlinks{display:flex; gap:28px; font-family:var(--mono); font-size:13px; color:var(--text-dim);}
-  .navlinks a{transition:color .15s ease;}
-  .navlinks a:hover{color:var(--green);}
-  .navlinks .branch{
-    color:var(--text-faint); border:1px solid var(--border); border-radius:4px;
-    padding:3px 10px; font-size:12px;
-  }
-  @media (max-width:640px){ .navlinks a:not(.branch){display:none;} }
-
-  /* hero */
-  .hero{padding:96px 0 72px;}
-  .eyebrow{
-    font-family:var(--mono); font-size:12px; color:var(--green);
-    letter-spacing:0.04em; margin-bottom:18px; display:flex; align-items:center; gap:10px;
-  }
-  .eyebrow::before{content:''; width:18px; height:1px; background:var(--green); display:inline-block;}
-  h1{
-    font-family:var(--mono); font-weight:600; font-size:clamp(34px,5vw,56px);
-    line-height:1.12; letter-spacing:-0.01em; margin-bottom:20px;
-  }
-  h1 .accent{color:var(--green);}
-  .subhead{
-    color:var(--text-dim); font-size:18px; max-width:560px; margin-bottom:36px;
-  }
-  .hero-ctas{display:flex; gap:14px; margin-bottom:56px; flex-wrap:wrap;}
-  .btn{
-    font-family:var(--mono); font-size:13px; padding:11px 20px; border-radius:6px;
-    border:1px solid var(--border-strong); transition:all .15s ease; display:inline-flex; align-items:center; gap:8px;
-  }
-  .btn-primary{background:var(--green); color:#0A0B0D; border-color:var(--green); font-weight:600;}
-  .btn-primary:hover{opacity:0.88;}
-  .btn-secondary{color:var(--text); background:transparent;}
-  .btn-secondary:hover{border-color:var(--text-dim); background:var(--surface);}
-
-  /* terminal window */
-  .terminal{
-    background:var(--surface); border:1px solid var(--border); border-radius:10px;
-    overflow:hidden; max-width:640px;
-  }
-  .term-bar{
-    display:flex; align-items:center; gap:8px; padding:12px 16px;
-    background:var(--surface-2); border-bottom:1px solid var(--border);
-  }
-  .term-dot{width:10px; height:10px; border-radius:50%;}
-  .term-body{
-    font-family:var(--mono); font-size:13.5px; padding:20px 22px; color:var(--text-dim);
-    min-height:120px;
-  }
-  .term-body .prompt{color:var(--green);}
-  .term-line{margin-bottom:6px;}
-  .term-out{color:var(--text);}
-  .cursor{display:inline-block; width:8px; height:15px; background:var(--green); vertical-align:middle; animation:blink 1s step-end infinite;}
-  @keyframes blink{50%{opacity:0;}}
-  @media (prefers-reduced-motion:reduce){.cursor{animation:none;}}
-
-  /* section shared */
-  section{padding:80px 0;}
-  .section-head{
-    display:flex; align-items:baseline; gap:14px; margin-bottom:44px;
-  }
-  .section-num{font-family:var(--mono); font-size:13px; color:var(--text-faint);}
-  h2{font-family:var(--mono); font-size:24px; font-weight:600;}
-  .section-rule{flex:1; height:1px; background:var(--border);}
-
-  /* about */
-  .about-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:56px; align-items:start;}
-  .about-body p{color:var(--text-dim); margin-bottom:16px; max-width:56ch;}
-  .about-body strong{color:var(--text); font-weight:500;}
-  .facts{font-family:var(--mono); font-size:13px;}
-  .fact-row{
-    display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid var(--border);
-    color:var(--text-dim);
-  }
-  .fact-row span:last-child{color:var(--text);}
-  @media (max-width:800px){ .about-grid{grid-template-columns:1fr;} }
-
-  /* projects */
-  .projects{display:grid; grid-template-columns:repeat(2,1fr); gap:20px;}
-  @media (max-width:800px){ .projects{grid-template-columns:1fr;} }
-  .card{
-    background:var(--surface); border:1px solid var(--border); border-radius:10px;
-    overflow:hidden; transition:border-color .15s ease, transform .15s ease;
-    height:100%;
-  }
-  .card:hover{border-color:var(--border-strong); transform:translateY(-2px);}
-  .card-tab{
-    display:flex; align-items:center; justify-content:space-between;
-    padding:12px 18px; background:var(--surface-2); border-bottom:1px solid var(--border);
-    font-family:var(--mono); font-size:12.5px; color:var(--text-dim);
-  }
-  .card-status{color:var(--green);}
-  .card-body{padding:20px 18px 22px;}
-  .card-title{font-family:var(--mono); font-size:16px; font-weight:600; margin-bottom:10px;}
-  .card-desc{color:var(--text-dim); font-size:14px; margin-bottom:18px;}
-  .tags{display:flex; flex-wrap:wrap; gap:7px; margin-bottom:18px;}
-  .tag{
-    font-family:var(--mono); font-size:11.5px; padding:3px 9px; border-radius:4px;
-    background:var(--surface-2); color:var(--text-dim); border:1px solid var(--border);
-  }
-  .diffstat{font-family:var(--mono); font-size:12.5px; margin-bottom:16px;}
-  .diffstat .add{color:var(--green);}
-  .diffstat .rem{color:var(--red); margin-left:10px;}
-  .card-links{display:flex; gap:16px; font-family:var(--mono); font-size:12.5px;}
-  .card-links a{color:var(--text-dim); border-bottom:1px solid transparent; transition:color .15s ease, border-color .15s ease;}
-  .card-links a:hover{color:var(--green); border-color:var(--green);}
-
-  /* photo */
-  .photo-frame{
-    border:1px solid var(--border); border-radius:10px; overflow:hidden;
-    background:var(--surface); max-width:340px;
-  }
-  .photo-frame .card-tab{
-    display:flex; align-items:center; justify-content:space-between;
-    padding:12px 16px; background:var(--surface-2); border-bottom:1px solid var(--border);
-    font-family:var(--mono); font-size:12px; color:var(--text-dim);
-  }
-  .photo-frame .card-status{color:var(--green);}
-  .photo-frame .photo-wrap{
-    aspect-ratio:4/5; width:100%; background:var(--surface-2);
-    display:flex; align-items:center; justify-content:center; overflow:hidden;
-  }
-  .photo-frame img{width:100%; height:100%; object-fit:cover; display:block;}
-
-  /* carousel */
-  .interest-slide{
-    background:var(--surface); border:1px solid var(--border); border-radius:10px;
-    padding:40px; min-height:180px; display:flex; flex-direction:column; justify-content:center;
-  }
-  .interest-slide .slide-eyebrow{font-family:var(--mono); font-size:12px; color:var(--green); margin-bottom:10px;}
-  .interest-slide h3{font-family:var(--mono); font-size:20px; font-weight:600; margin-bottom:10px;}
-  .interest-slide p{color:var(--text-dim); max-width:520px; margin:0;}
-  .carousel-indicators [data-bs-target]{
-    background-color:var(--border-strong); width:8px; height:8px; border-radius:50%; opacity:1;
-  }
-  .carousel-indicators .active{background-color:var(--green);}
-  .carousel-control-prev, .carousel-control-next{width:5%; opacity:0.6;}
-  .carousel-control-prev:hover, .carousel-control-next:hover{opacity:1;}
-  .carousel-control-prev-icon, .carousel-control-next-icon{
-    filter: invert(1) grayscale(1) brightness(1.6);
-    width:1.6rem; height:1.6rem;
-  }
-
-  /* collapse trigger */
-  .collapse-trigger{
-    width:100%; text-align:left; display:flex; align-items:center; justify-content:space-between;
-  }
-  .collapse-trigger .chevron{transition:transform .2s ease; font-family:var(--mono);}
-  .collapse-trigger[aria-expanded="true"] .chevron{transform:rotate(180deg);}
-  .hobbies-panel{
-    border:1px solid var(--border); border-radius:10px; padding:22px; margin-top:14px;
-    background:var(--surface);
-  }
-  .hobbies-panel ul{list-style:none; display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:10px;}
-  .hobbies-panel li{
-    display:flex; gap:10px; align-items:baseline; color:var(--text-dim); font-size:14.5px;
-  }
-  .hobbies-panel li::before{content:'▸'; color:var(--green); font-family:var(--mono); flex-shrink:0;}
-
-  /* skills */
-  .skills-groups{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:24px;}
-  @media (max-width:800px){ .skills-groups{grid-template-columns:1fr;} }
-  .skill-group{border:1px solid var(--border); border-radius:10px; padding:22px;}
-  .skill-group-head{
-    font-family:var(--mono); font-size:12px; color:var(--text-faint); margin-bottom:14px;
-    display:flex; align-items:center; gap:8px;
-  }
-  .skill-group-head::before{content:'$'; color:var(--green);}
-  .skill-list{display:flex; flex-wrap:wrap; gap:8px;}
-  .skill-chip{
-    font-family:var(--mono); font-size:13px; padding:5px 11px; border-radius:5px;
-    background:var(--surface); border:1px solid var(--border); color:var(--text);
-  }
-
-  /* contact */
-  .contact-box{
-    border:1px solid var(--border); border-radius:10px; padding:44px;
-    display:flex; align-items:center; justify-content:space-between; gap:32px; flex-wrap:wrap;
-    background:var(--surface);
-  }
-  .contact-box h3{font-family:var(--mono); font-size:22px; font-weight:600; margin-bottom:10px;}
-  .contact-box p{color:var(--text-dim); max-width:420px;}
-  .contact-links{display:flex; gap:14px; flex-wrap:wrap;}
-
-  footer{
-    border-top:1px solid var(--border); padding:28px 0; margin-top:40px;
-    font-family:var(--mono); font-size:12px; color:var(--text-faint);
-    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
-  }
-
-  :focus-visible{outline:2px solid var(--green); outline-offset:2px;}
-</style>
+<link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="enhancements.css">
 </head>
 <body>
@@ -299,23 +49,23 @@
           <div class="photo-frame mx-auto">
             <div class="card-tab"><span>profile.jpg</span><span class="card-status">●</span></div>
             <div class="photo-wrap">
-              <!-- Add your photo: drop a file named "profile.jpg" in the same folder as this page. -->
               <img src="profile.jpg" alt="Alexander Nicolaou">
             </div>
           </div>
         </div>
       </div>
 
+      <!-- Terminal: the full text is here for no-JS visitors; script.js types it out. -->
       <div class="terminal mt-5">
         <div class="term-bar">
-          <div class="term-dot" style="background:#B9614F"></div>
-          <div class="term-dot" style="background:#E0A458"></div>
-          <div class="term-dot" style="background:#6FCF97"></div>
+          <div class="term-dot term-dot-red"></div>
+          <div class="term-dot term-dot-amber"></div>
+          <div class="term-dot term-dot-green"></div>
         </div>
-        <div class="term-body">
-          <div class="term-line"><span class="prompt">$</span> whoami</div>
+        <div class="term-body" id="termBody">
+          <div class="term-line" data-type="cmd"><span class="prompt">$</span> <span class="term-text">whoami</span></div>
           <div class="term-line term-out">alexander-nicolaou — aspiring data &amp; software engineer</div>
-          <div class="term-line"><span class="prompt">$</span> cat stack.txt</div>
+          <div class="term-line" data-type="cmd"><span class="prompt">$</span> <span class="term-text">cat stack.txt</span></div>
           <div class="term-line term-out">Python · Cryptography · SQL · JavaScript · C#</div>
           <div class="term-line"><span class="prompt">$</span> <span class="cursor"></span></div>
         </div>
@@ -354,7 +104,7 @@
           <div class="fact-row"><span>contact</span><span>see below ↓</span></div>
         </div>
       </div>
-      <div style="margin-top:28px;">
+      <div class="section-cta">
         <a class="btn btn-secondary" href="about.html">Read full bio →</a>
       </div>
     </section>
@@ -374,7 +124,7 @@
             <div class="card-title">Password Vault</div>
             <div class="card-desc">A secure, lightweight desktop password manager. Credentials are encrypted with AES-128 (Fernet), and the encryption key is derived from your master password via PBKDF2-SHA256 — nothing sensitive is ever stored in plain text.</div>
             <div class="tags"><span class="tag">Python</span><span class="tag">Cryptography</span><span class="tag">Tkinter</span></div>
-            <div class="diffstat"><span class="add">+ AES-128 encryption</span><span class="rem">- 5-attempt lockout</span></div>
+            <div class="diffstat"><span class="add">+ AES-128 encryption</span><span class="add-alt">+ 5-attempt lockout</span></div>
             <div class="card-links"><a href="https://github.com/AlexNCyber/Password-Vault" target="_blank" rel="noopener noreferrer">source code →</a></div>
           </div>
         </div>
@@ -387,7 +137,7 @@
             <div class="card-title">Python Web Scraper</div>
             <div class="card-desc">Crawls quotes.toscrape.com and exports quotes, authors, and tags to CSV. Built as a clean, thoroughly-commented example of the fetch → parse → extract → save workflow, with rate-limiting and error handling included.</div>
             <div class="tags"><span class="tag">Python</span><span class="tag">Requests</span><span class="tag">BeautifulSoup4</span></div>
-            <div class="diffstat"><span class="add">+ auto pagination</span><span class="rem">- rate limiting</span></div>
+            <div class="diffstat"><span class="add">+ auto pagination</span><span class="add-alt">+ rate limiting</span></div>
             <div class="card-links"><a href="https://github.com/AlexNCyber/Python-Web-Scraper" target="_blank" rel="noopener noreferrer">source code →</a></div>
           </div>
         </div>
@@ -400,7 +150,7 @@
             <div class="card-title">Personal Finance Tracker</div>
             <div class="card-desc">A desktop finance app with a dashboard, transaction tracking, recurring subscription management, and savings goals with progress bars — all stored locally in SQLite, no account or internet connection needed.</div>
             <div class="tags"><span class="tag">Python</span><span class="tag">CustomTkinter</span><span class="tag">SQLite</span></div>
-            <div class="diffstat"><span class="add">+ savings goals</span><span class="rem">- offline-first</span></div>
+            <div class="diffstat"><span class="add">+ savings goals</span><span class="add-alt">+ offline-first</span></div>
             <div class="card-links"><a href="https://github.com/AlexNCyber/Personal-Finance-Tracker" target="_blank" rel="noopener noreferrer">source code →</a></div>
           </div>
         </div>
@@ -413,7 +163,7 @@
             <div class="card-title">ETL Pipeline</div>
             <div class="card-desc">A CSV → Parquet → BigQuery pipeline built around a real ~54k-row open dataset. Downloads and cleans the data, converts it to partitioned Parquet, then loads it into BigQuery with an explicit schema and idempotent re-runs.</div>
             <div class="tags"><span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">BigQuery</span><span class="tag">Parquet</span></div>
-            <div class="diffstat"><span class="add">+ idempotent loads</span><span class="rem">- schema drift</span></div>
+            <div class="diffstat"><span class="add">+ idempotent loads</span><span class="add-alt">+ explicit schema</span></div>
             <div class="card-links"><a href="https://github.com/AlexNCyber/ETL-Pipeline" target="_blank" rel="noopener noreferrer">source code →</a></div>
           </div>
         </div>
@@ -421,18 +171,18 @@
 
         <div class="col-md-6">
         <div class="card">
-          <div class="card-tab"><span>firewall</span><span class="card-status">● complete </span></div>
+          <div class="card-tab"><span>firewall.md</span><span class="card-status">● complete</span></div>
           <div class="card-body">
             <div class="card-title">Firewall</div>
-            <div class="card-desc">A personal test on developing and using a firewall developed through python</div>
+            <div class="card-desc">A personal project to develop and test a firewall in Python, layered on top of iptables/nftables rules for real traffic filtering.</div>
             <div class="tags"><span class="tag">Python</span><span class="tag">Firewall</span><span class="tag">Security</span><span class="tag">iptables/nftables</span></div>
-            <div class="diffstat"><span class="add">+ protection </span><span class="rem">- personal test </span></div>
+            <div class="diffstat"><span class="add">+ traffic filtering</span><span class="add-alt">+ iptables/nftables rules</span></div>
             <div class="card-links"><a href="https://github.com/AlexNCyber/Firewall" target="_blank" rel="noopener noreferrer">source code →</a></div>
           </div>
         </div>
         </div>
       </div>
-      <div style="margin-top:28px;">
+      <div class="section-cta">
         <a class="btn btn-secondary" href="projects.html">View all projects →</a>
       </div>
     </section>
@@ -458,13 +208,14 @@
           </div>
         </div>
         <div class="skill-group">
-          <div class="skill-group-head">Artificial Intelligence</div>
+          <div class="skill-group-head">libraries</div>
           <div class="skill-list">
-            <span class="skill-chip">Prompt Engineering</span>
-            <span class="skill-chip">Tool Proficiency</span>
-            <span class="skill-chip">Critical Thinking</span>
-            <span class="skill-chip">Machine Learning</span>
-            <span class="skill-chip">Ethics and Governence</span>
+            <span class="skill-chip">Pandas</span>
+            <span class="skill-chip">Cryptography</span>
+            <span class="skill-chip">CustomTkinter</span>
+            <span class="skill-chip">BeautifulSoup4</span>
+            <span class="skill-chip">Requests</span>
+            <span class="skill-chip">iptables</span>
           </div>
         </div>
         <div class="skill-group">
@@ -472,6 +223,8 @@
           <div class="skill-list">
             <span class="skill-chip">Git</span>
             <span class="skill-chip">SQLite</span>
+            <span class="skill-chip">BigQuery</span>
+            <span class="skill-chip">Parquet</span>
             <span class="skill-chip">PyInstaller</span>
             <span class="skill-chip">CiscoPacketTracer</span>
             <span class="skill-chip">Visual Studio Code</span>
@@ -499,7 +252,9 @@
         <div class="section-rule"></div>
       </div>
 
-      <div id="interestsCarousel" class="carousel slide" data-bs-ride="carousel">
+      <!-- data-bs-pause="false": the pause/play button (script.js) is the only thing that pauses it -->
+      <div id="interestsCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-pause="false">
+        <button type="button" class="carousel-toggle" id="carouselToggle" aria-label="Pause carousel">&#10074;&#10074; pause</button>
         <div class="carousel-indicators">
           <button type="button" data-bs-target="#interestsCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
           <button type="button" data-bs-target="#interestsCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -569,7 +324,8 @@
         </div>
         <div class="contact-links">
           <a class="btn btn-primary" href="mailto:alexandernicolaoucyber@outlook.com">Email me</a>
-          <a class="btn btn-secondary" href="tel:+61433000047">Call me</a>
+          <button type="button" class="btn btn-secondary" data-phone-reveal>Show phone number</button>
+          <a class="btn btn-secondary" data-phone-target="link" data-phone-label="Call me" hidden>Call me</a>
           <a class="btn btn-secondary" href="https://github.com/AlexNCyber" target="_blank" rel="noopener noreferrer">GitHub</a>
           <a class="btn btn-secondary" href="https://www.linkedin.com/in/alexander-nicolaou-9b6520388/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         </div>
@@ -579,14 +335,13 @@
 </main>
 
 <footer>
-  <div class="wrap" style="display:flex; justify-content:space-between; width:100%; flex-wrap:wrap; gap:10px;">
-    <span>© 2026 Alexander Nicolaou. built with html, css &amp; javascript.</span>
+  <div class="wrap">
+    <span>© 2026 Alexander Nicolaou. built with html, css, bootstrap &amp; javascript.</span>
     <span>last commit: just now</span>
   </div>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
 <script src="script.js"></script>
 
 </body>
